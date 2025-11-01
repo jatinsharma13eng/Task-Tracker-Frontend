@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.main-content {
+  padding-top: 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 1rem;
+  }
+}
