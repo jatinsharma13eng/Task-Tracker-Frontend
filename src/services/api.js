@@ -20,9 +20,9 @@ export const taskService = {
 
   deleteTask: (id) => api.delete(`/tasks/${id}`),
 
-  getCompletedTasks: () => api.get('/tasks?status=completed'),
+  getCompletedTasks: () => api.get('/tasks?completed=true'),
 
-  getPendingTasks: () => api.get('/tasks?status=pending'),
+  getPendingTasks: () => api.get('/tasks?completed=false'),
 };
 
 export default api;

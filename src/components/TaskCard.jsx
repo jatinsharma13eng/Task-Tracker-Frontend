@@ -12,7 +12,7 @@ function TaskCard({ task, onDelete, onUpdate }) {
     try {
       const updatedTask = {
         ...task,
-        status: task.status === 'pending' ? 'completed' : 'pending',
+        completed: !task.completed,
       };
       await taskService.updateTask(task.id, updatedTask);
       onUpdate(updatedTask);
@@ -88,12 +88,14 @@ function TaskCard({ task, onDelete, onUpdate }) {
     );
   }
 
+  const statusText = task.completed ? 'completed' : 'pending';
+
   return (
-    <div className={`task-card ${task.status}`}>
+    <div className={`task-card ${statusText}`}>
       <div className="task-header">
         <h3 className="task-title">{task.title}</h3>
-        <span className={`task-status-badge ${task.status}`}>
-          {task.status}
+        <span className={`task-status-badge ${statusText}`}>
+          {statusText}
         </span>
       </div>
       <p className="task-description">{task.description}</p>
@@ -106,9 +108,9 @@ function TaskCard({ task, onDelete, onUpdate }) {
           <button
             onClick={handleStatusToggle}
             className="btn-toggle"
-            title={task.status === 'pending' ? 'Mark as completed' : 'Mark as pending'}
+            title={task.completed ? 'Mark as pending' : 'Mark as completed'}
           >
-            {task.status === 'pending' ? '✓' : '↻'}
+            {task.completed ? '↻' : '✓'}
           </button>
           <button
             onClick={() => setIsEditing(true)}

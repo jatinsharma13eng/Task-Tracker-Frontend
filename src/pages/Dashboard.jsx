@@ -37,13 +37,15 @@ function Dashboard() {
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'all') return true;
-    return task.status === filter;
+    if (filter === 'completed') return task.completed === true;
+    if (filter === 'pending') return task.completed === false;
+    return true;
   });
 
   const stats = {
     total: tasks.length,
-    pending: tasks.filter((t) => t.status === 'pending').length,
-    completed: tasks.filter((t) => t.status === 'completed').length,
+    pending: tasks.filter((t) => t.completed === false).length,
+    completed: tasks.filter((t) => t.completed === true).length,
   };
 
   return (
