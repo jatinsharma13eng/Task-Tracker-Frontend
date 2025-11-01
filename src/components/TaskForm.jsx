@@ -9,15 +9,15 @@ function TaskForm() {
     title: '',
     description: '',
     dueDate: '',
-    status: 'pending',
+    completed: false,
   });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -85,17 +85,17 @@ function TaskForm() {
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="status">Status</label>
-        <select
-          id="status"
-          name="status"
-          value={formData.status}
-          onChange={handleChange}
-        >
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-        </select>
+      <div className="form-group checkbox-group">
+        <label htmlFor="completed" className="checkbox-label">
+          <input
+            type="checkbox"
+            id="completed"
+            name="completed"
+            checked={formData.completed}
+            onChange={handleChange}
+          />
+          Mark as completed
+        </label>
       </div>
 
       <div className="form-actions">

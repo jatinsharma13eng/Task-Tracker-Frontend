@@ -14,9 +14,8 @@ function CompletedTasks() {
   const fetchCompletedTasks = async () => {
     try {
       setLoading(true);
-      const response = await taskService.getAllTasks();
-      const completedTasks = response.data.filter((task) => task.status === 'completed');
-      setTasks(completedTasks);
+      const response = await taskService.getCompletedTasks();
+      setTasks(response.data);
     } catch (error) {
       console.error('Error fetching completed tasks:', error);
       alert('Failed to fetch completed tasks. Please ensure the backend is running.');
@@ -30,7 +29,7 @@ function CompletedTasks() {
   };
 
   const handleUpdate = (updatedTask) => {
-    if (updatedTask.status === 'completed') {
+    if (updatedTask.completed === true) {
       setTasks((prevTasks) =>
         prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
       );
